@@ -36,6 +36,13 @@ public class Family {
 	public void setChild(List<Child> child) {
 		this.child = child;
 	}
+
+	@Override
+	public String toString() {
+		return "Family [id=" + id + ", father=" + father + ", child=" + child + "]";
+	}
+	
+	
 	
 	
 }

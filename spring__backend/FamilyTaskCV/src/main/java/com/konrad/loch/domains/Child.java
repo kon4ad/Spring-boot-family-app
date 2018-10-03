@@ -40,5 +40,11 @@ public class Child {
 		this.sex = sex;
 	}
 	
+	@Override
+	public String toString() {
+		return "Child [id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", PESEL=" + PESEL
+				+ ", sex=" + sex + "]";
+	}
+	
 	
 }

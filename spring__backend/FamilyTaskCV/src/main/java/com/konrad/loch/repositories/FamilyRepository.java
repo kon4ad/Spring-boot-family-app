@@ -14,6 +14,8 @@ public interface FamilyRepository {
 	void addChildTofamily(Child child, int familyId);
 	
 	List<Integer> searchChild(); //return ids of found childs
+	 
+	List<Integer> searchChild(int familyID);
 	
 	Family readFamily(int id);
 	

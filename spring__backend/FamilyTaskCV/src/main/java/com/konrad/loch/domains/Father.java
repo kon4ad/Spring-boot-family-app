@@ -40,6 +40,12 @@ public class Father {
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
+	@Override
+	public String toString() {
+		return "Father [id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", PESEL=" + PESEL
+				+ ", birthDate=" + birthDate + "]";
+	}
+	
 	
 
 }
