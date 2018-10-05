@@ -1,6 +1,5 @@
 package com.konrad.loch.services;
 
-import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +55,20 @@ public class FamilyServiceImpl implements FamilyService {
 	@Override
 	public Family readFamily(int childId) {
 		int familyId = this.familyRepository.readFamilyIdByChildId(childId);
+		if(familyId == -1){
+			return null;
+		}
 		List<Child> childrenList = new ArrayList<>();
 		List<Integer> childrenIds = this.searchChild(familyId);
 		for(int id : childrenIds){
 			childrenList.add(this.readChild(id));
 		}
 		Father father = this.readFather(this.familyRepository.readFatherIdByFamilyId(familyId));
+		
+		if(father == null){
+			return null;
+		}
+		
 		Family family = new Family();
 		family.setId(familyId);
 		family.setChild(childrenList);
@@ -69,7 +76,6 @@ public class FamilyServiceImpl implements FamilyService {
 		return family;
 	}
 	
-
 	@Override
 	public Child readChild(int childId) {
 		return this.familyRepository.readChild(childId);

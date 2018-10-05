@@ -1,41 +1,41 @@
 package com.konrad.loch;
 
 import java.sql.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PreDestroy;
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.test.annotation.Commit;
 
 import com.konrad.loch.domains.Child;
+import com.konrad.loch.domains.Family;
 import com.konrad.loch.domains.Father;
-import com.konrad.loch.repositories.FamilyRepository;
+import com.konrad.loch.services.FamilyService;
 
+
+@Component
 public class TestClass implements CommandLineRunner {
 
+
 	@Autowired
-	private FamilyRepository familyRepository;
-	@Autowired
-	private DataSource ds;
+	private FamilyService familyService;
+	
 	@Autowired 
 	private JdbcTemplate jt;
 	@Override
 	public void run(String... args) throws Exception {
 		
-		int ids=  this.familyRepository.createFamily();
 		Father f = new Father();
 		f.setFirstName("Janusz");
-		f.setBirthDate(new Date(2000, 11, 11));
+		f.setBirthDate(new Date(new GregorianCalendar(1993, 9, 3).getTimeInMillis()));
 		f.setPESEL("33333333333");
 		f.setSecondName("Dokor");
-		this.familyRepository.addFatherTofamily(f, ids);
-		
+	
 		Child c1 = new Child();
 		c1.setFirstName("Piotr");
 		c1.setPESEL("12345678911");
@@ -47,17 +47,19 @@ public class TestClass implements CommandLineRunner {
 		c2.setPESEL("14534534545");
 		c2.setSecondName("WWC");
 		c2.setSex("Kobieta");
-		this.familyRepository.addChildTofamily(c1, ids);
-		this.familyRepository.addChildTofamily(c2, ids);
 		
-		//System.out.println(this.familyRepository.readFamily(ids)); 
-		//this.familyRepository.searchChild("siema",null,"eleoelle",null,"2003-23-12");
-		//this.familyRepository.searchChild(null, "siema", null,null,"061212");
-		Map<String, String> myMap = new HashMap<>();
-		myMap.put("pesel", "14534534545");
-		System.out.println(ds.toString());
-		System.out.println(this.familyRepository.searchChildByMapParams(myMap));
-		System.out.println(this.familyRepository.readFamily(this.familyRepository.searchChildByMapParams(myMap)).size());
+		int familyId = this.familyService.createFamily();
+		System.out.println(familyId);
+		int id2 = this.familyService.addFatherTofamily(f, familyId);
+		System.out.println(id2);
+		int idc1 = this.familyService.addChildTofamily(c1, familyId);
+		System.out.println(idc1);
+		int idc2 = this.familyService.addChildTofamily(c2, familyId);
+		System.out.println(idc2);
+		Family fam = this.familyService.readFamily(1);
+		Family fam2 = this.familyService.readFamily(idc2);
+		//System.out.println(fam);
+		//System.out.println(fam2);
 	}
 	
 	//change to execute file.

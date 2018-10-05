@@ -1,13 +1,11 @@
 package com.konrad.loch.repositories;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -201,18 +199,18 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 		return this.jdbcTemplate.queryForList(sb.toString(), Integer.class);
 	}
 	
-	private int getFamilyIdByChildId(int id){
+	/*private int getFamilyIdByChildId(int id){
 		String SQL_QUERY = "select family_id from family_childrens where childrens_id = ?";
 		return this.jdbcTemplate.queryForObject(SQL_QUERY, Integer.class, id);
-	}
+	} */
 	
-	private Set<Integer> getFamilyIdsByChildrensIds(List<Integer> childIdList){
+	/*private Set<Integer> getFamilyIdsByChildrensIds(List<Integer> childIdList){
 		Set<Integer> idSet = new HashSet<>();
 		for(int id : childIdList){
 			idSet.add(this.getFamilyIdByChildId(id));
 		}
 		return idSet;
-	}
+	} */
 
 	/*@Override
 	public Set<Family> readFamily(List<Integer> childIdList) {
@@ -226,14 +224,24 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 
 	@Override
 	public int readFamilyIdByChildId(int childId) {
-		// TODO Auto-generated method stub
-		return 0;
+		String SQL_QUERY = "select family_id from family_childrens where childrens_id = ?";
+		Integer retVal = this.jdbcTemplate.queryForObject(SQL_QUERY, Integer.class,childId);
+		if(retVal != null){
+			return retVal.intValue();
+		}else{
+			return -1;
+		}
 	}
 
 	@Override
 	public int readFatherIdByFamilyId(int familyId) {
-		// TODO Auto-generated method stub
-		return 0;
+		String SQL_QUERY = "select father_id from family where id = ?";
+		Integer retVal = this.jdbcTemplate.queryForObject(SQL_QUERY, Integer.class,familyId);
+		if(retVal != null){
+			return retVal.intValue();
+		}else{
+			return -1;
+		}
 	}
 
 

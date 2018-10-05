@@ -1,6 +1,5 @@
 package com.konrad.loch.domains;
 
-import java.sql.Date;
 
 public class Child {
 
