@@ -1,31 +1,37 @@
 package com.konrad.loch.repositories;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.konrad.loch.domains.Child;
 import com.konrad.loch.domains.Family;
 import com.konrad.loch.domains.Father;
+import com.konrad.loch.exceptions.SaveOperationException;
 
 public interface FamilyRepository {
-	long createFamily();
+	int saveNewFamily() throws SaveOperationException;
 	
-	void addFatherTofamily(Father father, int familyId);
+	int saveFather(Father father) throws SaveOperationException;
 	
-	void addChildTofamily(Child child, int familyId);
-	//List<Integer> searchChild(String firstName, String secondName, String pesel, String sex, String date); //return ids of found childs
-	List<Integer> searchChild(Map<String,String> paramMaps); //return ids of found childs
-	 
-	List<Integer> searchChild(int familyID);
+	int saveChild(Child child) throws SaveOperationException;
 	
-	Set<Family> readFamily(List<Integer> childIdList);
-	
-	Family readFamily(int familyId);
+	Family readFamilyById(int familyId);
 	
 	Child readChild(int childId);
 	
 	Father readFather(int fatherId);
+	
+	boolean updateFatherTofamily(int fatherId, int familyId);
+	
+	boolean updateChildTofamily(int newChildId, int familyId);
+
+	List<Integer> searchChildByMapParams(Map<String,String> paramMaps); //return ids of found childs
+	 
+	List<Integer> searchChildByFamilyId(int familyID);
+	
+	int readFamilyIdByChildId(int childId);
+	
+	int readFatherIdByFamilyId(int familyId);
+	
 }
 

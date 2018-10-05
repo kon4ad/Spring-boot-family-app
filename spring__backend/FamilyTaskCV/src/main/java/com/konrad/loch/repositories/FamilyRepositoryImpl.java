@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.konrad.loch.domains.Child;
 import com.konrad.loch.domains.Family;
 import com.konrad.loch.domains.Father;
+import com.konrad.loch.exceptions.SaveOperationException;
 import com.konrad.loch.utils.AppUtils;
 
 @Repository
@@ -35,7 +36,7 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 	}
 
 	@Override
-	public long createFamily() {
+	public int saveNewFamily() throws SaveOperationException {
 
 		final String INSERT_MESSAGE_SQL = "insert into family (father_id) values(?) ";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -45,25 +46,26 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 			return ps;
 		}, keyHolder);
 
-		return (long) keyHolder.getKey();
+		if(keyHolder.getKey() != null){
+			return keyHolder.getKey().intValue();
+		}else {
+			throw new SaveOperationException();
+		}
 	}
 
 	@Override
-	public void addFatherTofamily(Father father, int familyId) {
-		Number newFatherId = this.saveFather(father);
-
-		if (newFatherId == null) {
-			return;
-		}
-
-		newFatherId = (long) newFatherId;
-
+	public boolean updateFatherTofamily(int fatherId, int familyId) {
 		String SQL_UPDATE = "update family set father_id = ? where id = ?";
-		this.jdbcTemplate.update(SQL_UPDATE, newFatherId, familyId);
+		int rowaff = this.jdbcTemplate.update(SQL_UPDATE, fatherId, familyId);
+		if(rowaff > 0){
+			return true;
+		}else {
+			return false;
+		}
 
 	}
 
-	private Number saveFather(Father father) {
+	public int saveFather(Father father) throws SaveOperationException {
 
 		final String INSERT_MESSAGE_SQL = "insert into father (birth_date, first_name, pesel, second_name) values(?,?,?,?) ";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -75,23 +77,28 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 			ps.setString(4, father.getSecondName());
 			return ps;
 		}, keyHolder);
-
-		return keyHolder.getKey();
+		
+		if(keyHolder.getKey() != null){
+			return keyHolder.getKey().intValue();
+		}else {
+			throw new SaveOperationException();
+		}
+		
 	}
 
 	@Override
-	public void addChildTofamily(Child child, int familyId) {
-		Number newChildId = this.saveChild(child);
-		if (newChildId == null) {
-			return;
-		}
-		newChildId = (long) newChildId;
+	public boolean updateChildTofamily(int newChildId, int familyId) {
 		String SQL_UPDATE = "insert into family_childrens (family_id, childrens_id) values (?,?)";
-		this.jdbcTemplate.update(SQL_UPDATE, familyId, newChildId);
+		int rowaff = this.jdbcTemplate.update(SQL_UPDATE, familyId, newChildId);
+		if(rowaff > 0){
+			return true;
+		}else {
+			return false;
+		}
 
 	}
 
-	private Number saveChild(Child child) {
+	public int saveChild(Child child) throws SaveOperationException  {
 
 		final String INSERT_STMT_SQL = "insert into child (sex,first_name, pesel, second_name) values(?,?,?,?) ";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -104,18 +111,22 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 			return ps;
 		}, keyHolder);
 
-		return keyHolder.getKey();
+		if(keyHolder.getKey() != null){
+			return keyHolder.getKey().intValue();
+		}else {
+			throw new SaveOperationException();
+		}
 	}
 
 
 	@Override
-	public Family readFamily(int id) {
+	public Family readFamilyById(int id) {
 		Family family = new Family();
 		int familyFatherId = this.getFamilyFatherId(id);
 		
 		Father father = this.readFather(familyFatherId);
 		
-		List<Integer> familyChildIdList = this.searchChild(id);
+		List<Integer> familyChildIdList = this.searchChildByFamilyId(id);
 		List<Child> familyChildsList = new ArrayList<>();
 		for(int childId : familyChildIdList){
 			familyChildsList.add(this.readChild(childId));
@@ -176,13 +187,13 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 	}
 
 	@Override
-	public List<Integer> searchChild(int familyID) {
+	public List<Integer> searchChildByFamilyId(int familyID) {
 		String SQL_QUERY = "select childrens_id from family_childrens where family_id = " + familyID;
 		return this.jdbcTemplate.queryForList(SQL_QUERY, Integer.class);
 	}
 
 	@Override
-	public List<Integer> searchChild(Map<String, String> paramMap) {
+	public List<Integer> searchChildByMapParams(Map<String, String> paramMap) {
 		String SQL_QUERY = "select id from child where ";
 		StringBuilder sb = new StringBuilder();
 		sb.append(SQL_QUERY);
@@ -203,7 +214,7 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 		return idSet;
 	}
 
-	@Override
+	/*@Override
 	public Set<Family> readFamily(List<Integer> childIdList) {
 		Set<Family> familySet = new HashSet<>();
 		Set<Integer> familysId = this.getFamilyIdsByChildrensIds(childIdList);
@@ -211,6 +222,19 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 			familySet.add(this.readFamily(famId));
 		}
 		return familySet;
+	} */
+
+	@Override
+	public int readFamilyIdByChildId(int childId) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
+	@Override
+	public int readFatherIdByFamilyId(int familyId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

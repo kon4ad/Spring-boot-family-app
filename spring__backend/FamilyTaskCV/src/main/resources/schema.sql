@@ -1,9 +1,5 @@
 
 
-alter table family drop foreign key FK_family_father
-alter table family_childrens drop foreign key FK_family_child
-alter table family_childrens drop  foreign key FK_family_family
-
 drop table if exists child
 drop table if exists family
 drop table if exists family_childrens
