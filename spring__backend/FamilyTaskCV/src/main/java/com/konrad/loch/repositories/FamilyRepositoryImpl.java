@@ -4,7 +4,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,16 +19,19 @@ import org.springframework.transaction.annotation.Transactional;
 import com.konrad.loch.domains.Child;
 import com.konrad.loch.domains.Family;
 import com.konrad.loch.domains.Father;
+import com.konrad.loch.utils.AppUtils;
 
 @Repository
 @Transactional
 public class FamilyRepositoryImpl implements FamilyRepository {
 
 	private JdbcTemplate jdbcTemplate;
+	private AppUtils appUtils;
 
 	@Autowired
-	public FamilyRepositoryImpl(JdbcTemplate jdbcTemplate) {
+	public FamilyRepositoryImpl(JdbcTemplate jdbcTemplate, AppUtils appUtils) {
 		this.jdbcTemplate = jdbcTemplate;
+		this.appUtils = appUtils;
 	}
 
 	@Override
@@ -87,10 +93,10 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 
 	private Number saveChild(Child child) {
 
-		final String INSERT_MESSAGE_SQL = "insert into child (sex,first_name, pesel, second_name) values(?,?,?,?) ";
+		final String INSERT_STMT_SQL = "insert into child (sex,first_name, pesel, second_name) values(?,?,?,?) ";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(connection -> {
-			PreparedStatement ps = connection.prepareStatement(INSERT_MESSAGE_SQL, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = connection.prepareStatement(INSERT_STMT_SQL, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, child.getSex());
 			ps.setString(2, child.getFirstName());
 			ps.setString(3, child.getPESEL());
@@ -101,11 +107,6 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 		return keyHolder.getKey();
 	}
 
-	@Override
-	public List<Integer> searchChild() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Family readFamily(int id) {
@@ -178,6 +179,38 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 	public List<Integer> searchChild(int familyID) {
 		String SQL_QUERY = "select childrens_id from family_childrens where family_id = " + familyID;
 		return this.jdbcTemplate.queryForList(SQL_QUERY, Integer.class);
+	}
+
+	@Override
+	public List<Integer> searchChild(Map<String, String> paramMap) {
+		String SQL_QUERY = "select id from child where ";
+		StringBuilder sb = new StringBuilder();
+		sb.append(SQL_QUERY);
+		sb.append(this.appUtils.createQueryFromMap(paramMap));
+		return this.jdbcTemplate.queryForList(sb.toString(), Integer.class);
+	}
+	
+	private int getFamilyIdByChildId(int id){
+		String SQL_QUERY = "select family_id from family_childrens where childrens_id = ?";
+		return this.jdbcTemplate.queryForObject(SQL_QUERY, Integer.class, id);
+	}
+	
+	private Set<Integer> getFamilyIdsByChildrensIds(List<Integer> childIdList){
+		Set<Integer> idSet = new HashSet<>();
+		for(int id : childIdList){
+			idSet.add(this.getFamilyIdByChildId(id));
+		}
+		return idSet;
+	}
+
+	@Override
+	public Set<Family> readFamily(List<Integer> childIdList) {
+		Set<Family> familySet = new HashSet<>();
+		Set<Integer> familysId = this.getFamilyIdsByChildrensIds(childIdList);
+		for(int famId : familysId){
+			familySet.add(this.readFamily(famId));
+		}
+		return familySet;
 	}
 
 }
