@@ -10,14 +10,22 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { SearchPageComponent } from './search-page/search-page.component';
+import { AddingPageComponent } from './adding-page/adding-page.component';
+import { FooterComponent } from './footer/footer.component';
+import { MainRouter } from './main-router';
 @NgModule({
   declarations: [
     AppComponent,
     MainMenuComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    SearchPageComponent,
+    AddingPageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
+    MainRouter,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
