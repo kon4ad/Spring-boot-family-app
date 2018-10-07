@@ -30,36 +30,6 @@ public class TestClass implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Father f = new Father();
-		f.setFirstName("Janusz");
-		f.setBirthDate(new Date(new GregorianCalendar(1993, 9, 3).getTimeInMillis()));
-		f.setPESEL("33333333333");
-		f.setSecondName("Dokor");
-	
-		Child c1 = new Child();
-		c1.setFirstName("Piotr");
-		c1.setPESEL("12345678911");
-		c1.setSecondName("Abc");
-		c1.setSex("Mężczyzna");
-		
-		Child c2 = new Child();
-		c2.setFirstName("Joanna");
-		c2.setPESEL("14534534545");
-		c2.setSecondName("WWC");
-		c2.setSex("Kobieta");
-		
-		int familyId = this.familyService.createFamily();
-		System.out.println(familyId);
-		int id2 = this.familyService.addFatherTofamily(f, familyId);
-		System.out.println(id2);
-		int idc1 = this.familyService.addChildTofamily(c1, familyId);
-		System.out.println(idc1);
-		int idc2 = this.familyService.addChildTofamily(c2, familyId);
-		System.out.println(idc2);
-		Family fam = this.familyService.readFamily(1);
-		Family fam2 = this.familyService.readFamily(idc2);
-		//System.out.println(fam);
-		//System.out.println(fam2);
 	}
 	
 	//change to execute file.

@@ -32,7 +32,7 @@ public class FamilyController {
 	
 	@GetMapping("/create/family")
 	public ResponseEntity<Integer> createFamily() throws SaveOperationException{
-		return new ResponseEntity<Integer>(this.familyService.createFamily(), HttpStatus.CREATED);
+		return ResponseEntity.status(HttpStatus.CREATED).body(this.familyService.createFamily());
 	}
 	
 	@PostMapping("/add/child")
