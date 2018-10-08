@@ -2,10 +2,10 @@
   <div fxFlex="40%">
     <mat-list style='text-align: center'>
       <mat-list-item> 
-        <button mat-stroked-button color="primary"><mat-icon>add</mat-icon> Dodaj Rodzinę</button>
+        <button mat-stroked-button color="primary" (click)="toAddingPage()"><mat-icon>add</mat-icon> Dodaj Rodzinę</button>
       </mat-list-item>
       <mat-list-item> 
-        <button mat-stroked-button color="primary"><mat-icon>search</mat-icon>Szukaj rodziny</button>
+        <button mat-stroked-button color="primary" (click)="toSearchingPage()"><mat-icon>search</mat-icon>Szukaj rodziny</button>
       </mat-list-item>
      </mat-list>
   </div>

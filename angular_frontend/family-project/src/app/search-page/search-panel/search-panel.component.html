@@ -1,0 +1,70 @@
+<div class="container shadow">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+        <div fxFlex="25%">
+          <mat-list style='text-align: center'>
+            <mat-list-item style='text-align: center'> 
+              <h3>Wyszukaj rodziny wprowadzając poniższe dane!</h3>
+            </mat-list-item>
+           </mat-list>
+        </div>
+      </div>
+    
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    
+        <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+            <div fxFlex="16%">
+                <div class="example-container">
+                    <mat-form-field>
+                      <input matInput placeholder="Imię" formControlName="first_name">
+                      <mat-error *ngIf="myForm.controls.first_name.invalid &&(myForm.controls.first_name.touched || myForm.controls.first_name.dirty)">Pole nie spełnia wymogów długości (min 2, max 50)</mat-error>
+                    </mat-form-field>
+                  </div>
+            </div>
+            <div fxFlex="16%">
+                <div class="example-container">
+                    <mat-form-field>
+                      <input matInput placeholder="Nazwisko" formControlName="second_name">
+                      <mat-error *ngIf="myForm.controls.second_name.invalid &&(myForm.controls.second_name.touched || myForm.controls.second_name.dirty)">Pole nie spełnia wymogów długości (min 2, max 50)</mat-error>
+                    </mat-form-field>
+                  </div>
+              </div>
+              <div fxFlex="16%">
+                  <div class="example-container">
+                      <mat-form-field>
+                        <input matInput placeholder="Pesel" formControlName="pesel">
+                        <mat-error *ngIf="myForm.controls.pesel.invalid &&(myForm.controls.pesel.touched || myForm.controls.pesel.dirty)">Format numeru PESEL jest niepoprawny</mat-error>
+                      </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="16%">
+                    <mat-form-field>
+                        <mat-select placeholder="Płeć" formControlName="sex">
+                          <mat-option *ngFor="let sex of sexs" [value]="sex.viewValue">
+                            {{sex.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  </div>
+                  <div fxFlex="16%">
+                      <mat-form-field>
+                          <input matInput [matDatepicker]="picker" placeholder="Data urodzenia" formControlName="birth_date">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+     
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+                        <div fxFlex="16.6%">
+                          <mat-list style='text-align: center'>
+                            <mat-list-item> 
+                                <button [disabled]="myForm.status == 'INVALID'" mat-stroked-button color="primary" type="submit">Szukaj rodzin</button>
+                            </mat-list-item>
+                           </mat-list>
+                        </div>
+                      </div>
+                  </form>
+    
+    </div>
+    {{myForm.getRawValue() | json}}
+    
