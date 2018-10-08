@@ -34,7 +34,6 @@ export class SearchPanelComponent implements OnInit {
   }
 
   onSubmit(){
-
     if(this.myForm.status == 'VALID'){
       let obj = Object.create(null);
       let val = this.myForm.getRawValue();
@@ -43,6 +42,10 @@ export class SearchPanelComponent implements OnInit {
           obj[x] = val[x];
         }
       });
+      if(Object.keys(obj).includes("birth_date")){
+        obj['birth_date'] = new Date(obj['birth_date']).getTime();
+        console.log(obj['birth_date'])
+      }
       this.formSearch.emit(obj);
     }
   }

@@ -1,0 +1,15 @@
+<h3 *ngIf="!families">Ładowanie...</h3>
+<table *ngIf="families">
+    <tr>
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Pesel</th>
+      <th>Data urodzenia</th>
+    </tr>
+    <tr class="fam-item" *ngFor="let fam of families">
+      <td>{{fam.father.firstName}}</td>
+      <td>{{fam.father.secondName}}</td>
+      <td>{{fam.father.pesel}}</td>
+      <td>{{fam.father.birthDate}}</td>
+    </tr>
+  </table>

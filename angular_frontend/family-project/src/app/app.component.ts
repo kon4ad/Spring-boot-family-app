@@ -8,3 +8,26 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'family-project';
 }
+
+
+export interface Family{
+  id: Number;
+  father: Father;
+  child: Child[];
+}
+
+export interface Father{
+  id:Number
+  firstName: String;
+  secondName: String;
+  birthDate: Date;
+  PESEL: String;
+}
+
+export interface Child{
+  id:Number
+  firstName: String;
+  secondName: String;
+  sex:String;
+  PESEL: String;
+}

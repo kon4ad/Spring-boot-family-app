@@ -1,3 +1,8 @@
 <app-search-panel (formSearch)="searchFamily($event)"></app-search-panel>
 <hr>
-
+<h3 *ngIf="!familyFound && !familyLoading" > Wyszukaj!</h3>
+<h3 *ngIf="familyLoading && familyFound">Ładowanie...</h3>
+<h3 *ngIf="familyLoading && !familyFound">Brak wyników!</h3>
+<div *ngIf="familyFound">
+    <app-family-table [families]='families'></app-family-table>  
+</div>

@@ -192,11 +192,16 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 
 	@Override
 	public List<Integer> searchChildByMapParams(Map<String, String> paramMap) {
+		if(!paramMap.isEmpty()){
 		String SQL_QUERY = "select id from child where ";
 		StringBuilder sb = new StringBuilder();
 		sb.append(SQL_QUERY);
 		sb.append(this.appUtils.createQueryFromMap(paramMap));
 		return this.jdbcTemplate.queryForList(sb.toString(), Integer.class);
+		}else {
+			String SQL_QUERY = "select id from child";
+			return this.jdbcTemplate.queryForList(SQL_QUERY, Integer.class);
+		}
 	}
 	
 	/*private int getFamilyIdByChildId(int id){
