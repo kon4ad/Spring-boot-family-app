@@ -1,33 +1,62 @@
   <mat-horizontal-stepper [linear]="true" #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Fill out your name</ng-template>
+        <ng-template matStepLabel>Dodaj ojca!</ng-template>
         <mat-form-field>
-          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+          <input matInput placeholder="Imię" formControlName="firstName" required>
         </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Nazwisko" formControlName="secondName" required>
+          </mat-form-field>
+          <mat-form-field>
+              <input matInput placeholder="PESEL" formControlName="pesel" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Data urodzenia" formControlName="birthDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
         <div>
-          <button mat-button matStepperNext>Next</button>
+          <h4 *ngIf="father" >Ojciec jest już stworzony, dodanie kolejnego spowoduje nadpisanie danych poprzedniego ojca.</h4>
+          <button mat-stroked-button color="primary" [disabled]="firstFormGroup.status == 'INVALID'" (click)="createFather()" mat-button matStepperNext>Dodaj ojca!</button>
         </div>
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Fill out your address</ng-template>
+        <ng-template matStepLabel>Dodaj dzieci!</ng-template>
         <mat-form-field>
-          <input matInput placeholder="Address" formControlName="secondCtrl" required>
-        </mat-form-field>
+            <input matInput placeholder="Imię" formControlName="firstName" required>
+          </mat-form-field>
+          <mat-form-field>
+              <input matInput placeholder="Nazwisko" formControlName="secondName" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="PESEL" formControlName="pesel" required>
+              </mat-form-field>
+              <mat-form-field>
+                  <mat-select placeholder="Płeć" formControlName="sex">
+                    <mat-option *ngFor="let sex of sexs" [value]="sex.viewValue">
+                      {{sex.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div *ngIf="childrens.length > 0">
+                <h4 >Liczba stworzonych dzieci to: {{childrens.length}}</h4>
+                <button mat-stroked-button color="alert" (click)="deleteAllChildrens()" mat-button>Usuń wsyzstkie dzieci!</button>
+              </div>
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-stroked-button color="primary" mat-button matStepperPrevious>Edycja ojca</button>
+          <button (click)="addChildToList()" [disabled]="secondFormGroup.status == 'INVALID'" mat-stroked-button color="primary" mat-button matStepperNext>Dodaj dziecko!</button>
         </div>
       </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      You are now done.
+      <ng-template matStepLabel>Stwórz rodzinę!</ng-template>
+      <h4>Rodzina jest gotowa do stworzenia. Jeśli chcesz dodać kolejne dzieci do rodziny, naciśni przycisk ponieżej!</h4>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-stroked-button color="primary" mat-button matStepperPrevious>Dodaj kolejne dziecko!</button>
+        <button mat-stroked-button color="primary" mat-button (click)="stepper.reset()">Stwórz rodzinę!</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

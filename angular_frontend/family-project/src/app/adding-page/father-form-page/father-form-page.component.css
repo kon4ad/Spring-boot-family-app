@@ -1,0 +1,12 @@
+button {
+    width:100%;
+
+}
+  .container {
+    min-height: 100%;
+    width: 100%;
+  }
+
+  mat-list-item{
+    margin-top: 1.2em;
+  }
