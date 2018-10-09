@@ -22,8 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SearchPanelComponent } from './search-page/search-panel/search-panel.component';
 import { HttpService } from './http-serivce';
 import { FamilyTableComponent } from './search-page/family-table/family-table.component';
-import { FatherFormPageComponent } from './adding-page/father-form-page/father-form-page.component';
-import { ChildFormPageComponent } from './adding-page/child-form-page/child-form-page.component';
+
+import { ShowFamilyComponent } from './show-family/show-family.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,8 +34,7 @@ import { ChildFormPageComponent } from './adding-page/child-form-page/child-form
     FooterComponent,
     SearchPanelComponent,
     FamilyTableComponent,
-    FatherFormPageComponent,
-    ChildFormPageComponent
+    ShowFamilyComponent
   ],
   imports: [
     BrowserModule,

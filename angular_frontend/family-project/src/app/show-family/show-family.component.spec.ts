@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FatherFormPageComponent } from './father-form-page.component';
+import { ShowFamilyComponent } from './show-family.component';
 
-describe('FatherFormPageComponent', () => {
-  let component: FatherFormPageComponent;
-  let fixture: ComponentFixture<FatherFormPageComponent>;
+describe('ShowFamilyComponent', () => {
+  let component: ShowFamilyComponent;
+  let fixture: ComponentFixture<ShowFamilyComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FatherFormPageComponent ]
+      declarations: [ ShowFamilyComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FatherFormPageComponent);
+    fixture = TestBed.createComponent(ShowFamilyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

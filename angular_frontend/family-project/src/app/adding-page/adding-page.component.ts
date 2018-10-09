@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Father, Child } from '../app.component';
+import { HttpService } from '../http-serivce';
+import { Router } from '@angular/router';
 
 export interface Sex {
   value: string;
@@ -24,7 +26,7 @@ export class AddingPageComponent implements OnInit {
     {value: '0', viewValue: 'Mężczyzna'},
     {value: '1', viewValue: 'Kobieta'}
   ];
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder, private httpServ:HttpService, private route:Router) {}
 
   
   ngOnInit() {
@@ -57,6 +59,23 @@ export class AddingPageComponent implements OnInit {
 
   deleteAllChildrens(){
     this.childrens = new Array();
+  }
+
+  addNewFamily(){
+    this.httpServ.createFamily().subscribe(familyId => {
+      this.httpServ.createFather(this.father, familyId).subscribe(fatherId => {
+        let counter:number = 0;
+        for(let child of this.childrens){
+          this.httpServ.createChild(child, familyId).subscribe(childId => {
+            counter++;
+            if(counter == this.childrens.length){
+              this.route.navigate(['/read/family/', familyId]);
+            }
+          });
+
+        }
+      })
+    })
   }
 
 }

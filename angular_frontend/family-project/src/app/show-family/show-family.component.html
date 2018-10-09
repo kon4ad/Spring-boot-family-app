@@ -1,0 +1,36 @@
+<h3 *ngIf="!family && !noResults">Ładowanie...</h3>
+<h3 *ngIf="noResults">Brak wyników!</h3>
+<div *ngIf="family">
+  <h2>Numer rodziny: {{family.id}}</h2>
+<h3>Dane Ojca: </h3>
+<table *ngIf="family">
+    <tr>
+      <th>Imię Ojca</th>
+      <th>Nazwisko Ojca</th>
+      <th>Pesel Ojca</th>
+      <th>Data urodzenia Ojca</th>
+    </tr>
+    <tr>
+      <td>{{family.father.firstName}}</td>
+      <td>{{family.father.secondName}}</td>
+      <td>{{family.father.pesel}}</td>
+      <td>{{family.father.birthDate}}</td>
+    </tr>
+  </table>
+
+  <h3>Dane Dzieci: </h3>
+<table *ngIf="family">
+    <tr>
+      <th>Imię Dziecka</th>
+      <th>Nazwisko Dziecka</th>
+      <th>Pesel Dziecka</th>
+      <th>Płeć Dziecka</th>
+    </tr>
+    <tr *ngFor="let c of family.child">
+      <td>{{c.firstName}}</td>
+      <td>{{c.secondName}}</td>
+      <td>{{c.pesel}}</td>
+      <td>{{c.sex}}</td>
+    </tr>
+  </table>
+</div>

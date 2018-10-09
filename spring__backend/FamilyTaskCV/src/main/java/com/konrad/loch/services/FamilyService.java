@@ -20,7 +20,7 @@ public interface FamilyService {
 	
 	List<Integer> searchChild(int familyId);
 	
-	Family readFamily(int childId);
+	Family readFamily(int id, boolean fromChildId);
 
 	Child readChild(int childId);
 	

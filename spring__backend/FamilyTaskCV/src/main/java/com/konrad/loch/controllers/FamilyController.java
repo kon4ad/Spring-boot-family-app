@@ -5,10 +5,13 @@ import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import java.util.List;
 import java.util.Map;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,7 +52,11 @@ public class FamilyController {
 	
 	@GetMapping("/read/family")
 	public ResponseEntity<Family> readFamily(@RequestParam("childId") String childId){
-		return new ResponseEntity<Family>(this.familyService.readFamily(Integer.parseInt(childId)), HttpStatus.OK);
+		return new ResponseEntity<Family>(this.familyService.readFamily(Integer.parseInt(childId), true), HttpStatus.OK);
+	}
+	@GetMapping("/read/family/{id}")
+	public ResponseEntity<Family> readFamilyById(@PathVariable("id") String id){
+		return new ResponseEntity<Family>(this.familyService.readFamily(Integer.parseInt(id), false), HttpStatus.OK);
 	}
 	
 	@GetMapping("/search/child")

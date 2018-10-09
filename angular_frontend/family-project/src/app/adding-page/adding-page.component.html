@@ -56,7 +56,7 @@
       <h4>Rodzina jest gotowa do stworzenia. Jeśli chcesz dodać kolejne dzieci do rodziny, naciśni przycisk ponieżej!</h4>
       <div>
         <button mat-stroked-button color="primary" mat-button matStepperPrevious>Dodaj kolejne dziecko!</button>
-        <button mat-stroked-button color="primary" mat-button (click)="stepper.reset()">Stwórz rodzinę!</button>
+        <button mat-stroked-button color="primary" (click)="addNewFamily()" mat-button>Stwórz rodzinę!</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

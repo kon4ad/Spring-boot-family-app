@@ -53,11 +53,15 @@ public class FamilyServiceImpl implements FamilyService {
 	}
 
 	@Override
-	public Family readFamily(int childId) {
-		int familyId = this.familyRepository.readFamilyIdByChildId(childId);
-		if(familyId == -1){
-			return null;
+	public Family readFamily(int ide, boolean fromChildId) {
+		int familyId = ide;
+		if(fromChildId){
+			familyId = this.familyRepository.readFamilyIdByChildId(ide);
+			if(familyId == -1){
+				return null;
+			}			
 		}
+
 		List<Child> childrenList = new ArrayList<>();
 		List<Integer> childrenIds = this.searchChild(familyId);
 		for(int id : childrenIds){

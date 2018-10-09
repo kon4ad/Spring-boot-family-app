@@ -21,4 +21,8 @@ export class ToolbarComponent implements OnInit {
     this.route.navigate(['search']);
   }
 
+  mainMenuRedirect(){
+    this.route.navigate(['']);
+  }
+
 }

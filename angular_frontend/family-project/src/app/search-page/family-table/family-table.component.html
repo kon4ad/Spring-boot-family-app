@@ -6,7 +6,7 @@
       <th>Pesel</th>
       <th>Data urodzenia</th>
     </tr>
-    <tr class="fam-item" *ngFor="let fam of families">
+    <tr (click)="toFamily(fam.id)" class="fam-item" *ngFor="let fam of families">
       <td>{{fam.father.firstName}}</td>
       <td>{{fam.father.secondName}}</td>
       <td>{{fam.father.pesel}}</td>

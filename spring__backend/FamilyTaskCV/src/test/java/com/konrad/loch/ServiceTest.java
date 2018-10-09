@@ -93,7 +93,7 @@ public class ServiceTest {
 		c2.setSex("Kobieta");
 		int childID = this.familyService.addChildTofamily(c2, famId);
 		
-		Family createdFamily = this.familyService.readFamily(childID);
+		Family createdFamily = this.familyService.readFamily(childID, true);
 		assertTrue(createdFamily.getChild().size() == 1);
 		assertTrue(createdFamily.getFather().getId() == fatherID);
 	}
