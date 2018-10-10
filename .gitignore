@@ -13,8 +13,6 @@ Servers/
 *.war
 *.ear
 
-#Gradle temporary files
-target/
 
 #Eclipse files
 **/.project

@@ -1,12 +1,9 @@
 package com.konrad.loch.controllers;
 
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+
 
 import java.util.List;
 import java.util.Map;
-
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +19,7 @@ import com.konrad.loch.domains.Family;
 import com.konrad.loch.domains.Father;
 import com.konrad.loch.exceptions.SaveOperationException;
 import com.konrad.loch.services.FamilyService;
+
 
 @RestController
 public class FamilyController {

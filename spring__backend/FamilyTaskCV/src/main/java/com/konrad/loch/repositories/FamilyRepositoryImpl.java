@@ -204,29 +204,6 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 		}
 	}
 	
-	/*private int getFamilyIdByChildId(int id){
-		String SQL_QUERY = "select family_id from family_childrens where childrens_id = ?";
-		return this.jdbcTemplate.queryForObject(SQL_QUERY, Integer.class, id);
-	} */
-	
-	/*private Set<Integer> getFamilyIdsByChildrensIds(List<Integer> childIdList){
-		Set<Integer> idSet = new HashSet<>();
-		for(int id : childIdList){
-			idSet.add(this.getFamilyIdByChildId(id));
-		}
-		return idSet;
-	} */
-
-	/*@Override
-	public Set<Family> readFamily(List<Integer> childIdList) {
-		Set<Family> familySet = new HashSet<>();
-		Set<Integer> familysId = this.getFamilyIdsByChildrensIds(childIdList);
-		for(int famId : familysId){
-			familySet.add(this.readFamily(famId));
-		}
-		return familySet;
-	} */
-
 	@Override
 	public int readFamilyIdByChildId(int childId) {
 		String SQL_QUERY = "select family_id from family_childrens where childrens_id = ?";
