@@ -43,8 +43,8 @@ public class AppUtils {
 		Calendar c = Calendar.getInstance(); 
 		c.setTimeInMillis(milliseconds);
 		String mYear = Integer.toString(c.get(Calendar.YEAR));
-		String mMonth = Integer.toString(c.get(Calendar.MONTH)); 
-		String mDay = Integer.toString(c.get(Calendar.DAY_OF_MONTH));
+		String mMonth = Integer.toString(c.get(Calendar.MONTH)+1); 
+		String mDay = Integer.toString(c.get(Calendar.DAY_OF_MONTH)+1);
 		mYear = mYear.substring(2);
 		if(mMonth.length() == 1){
 			mMonth = "0"+mMonth;
@@ -52,7 +52,7 @@ public class AppUtils {
 		if(mDay.length() == 1){
 			mDay = "0"+mDay;
 		}
-		
+		System.out.println( mYear+mMonth+mDay +'%');
 		return mYear+mMonth+mDay +'%';
 		
 	}

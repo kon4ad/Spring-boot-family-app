@@ -1,6 +1,6 @@
-insert into child (first_name , pesel, second_name, sex) values ('Test1','34534534545','Test5','Mężczyzna')
-insert into child (first_name , pesel, second_name, sex) values ('Test2','34534565445','Test6','Kobieta')
-insert into child (first_name , pesel, second_name, sex) values ('Test3','14010312312','Test7','Mężczyzna')
+insert into child (first_name , pesel, second_name, sex) values ('Test1','34534534545','Test5','M')
+insert into child (first_name , pesel, second_name, sex) values ('Test2','34534565445','Test6','K')
+insert into child (first_name , pesel, second_name, sex) values ('Test3','14010312312','Test7','M')
 insert into father (birth_date, first_name, pesel, second_name) values ('1992-04-12', 'Test10','92041223445','Test11')
 insert into family (father_id) values (NULL)
 update family set father_id=1 where id=1

@@ -14,7 +14,7 @@ services:
    image: mysql/mysql-server:5.7
    environment:
     MYSQL_DATABASE: test
-    MYSQL_ROOT_PASSWORD: hellokoding
+    MYSQL_ROOT_PASSWORD: mysecretpass
     MYSQL_ROOT_HOST: '%'
    ports:
    - "3306:3306"

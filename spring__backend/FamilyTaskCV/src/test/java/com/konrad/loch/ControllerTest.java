@@ -50,7 +50,7 @@ public class ControllerTest {
 		c.setFirstName("Test1");
 		c.setPESEL("12345678901");
 		c.setSecondName("Test2");
-		c.setSex("Mężczyzna");
+		c.setSex("M");
 		
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		String json = ow.writeValueAsString(c);
@@ -77,14 +77,14 @@ public class ControllerTest {
 	@Test
 	public void testReadFamilyByChildId() throws Exception {	
 		this.mockMvc.perform(get("/read/family").param("childId", "1")).andDo(print()).andExpect(status().isOk())
-		.andExpect(content().json("{\"id\":1,\"father\":{\"id\":1,\"firstName\":\"Test10\",\"secondName\":\"Test11\",\"birthDate\":\"1992-04-12\",\"pesel\":\"92041223445\"},\"child\":[{\"id\":1,\"firstName\":\"Test1\",\"secondName\":\"Test5\",\"sex\":\"Mężczyzna\",\"pesel\":\"34534534545\"},{\"id\":2,\"firstName\":\"Test2\",\"secondName\":\"Test6\",\"sex\":\"Kobieta\",\"pesel\":\"34534565445\"},{\"id\":3,\"firstName\":\"Test3\",\"secondName\":\"Test7\",\"sex\":\"Mężczyzna\",\"pesel\":\"14010312312\"}]}"));
+		.andExpect(content().json("{\"id\":1,\"father\":{\"id\":1,\"firstName\":\"Test10\",\"secondName\":\"Test11\",\"birthDate\":\"1992-04-12\",\"pesel\":\"92041223445\"},\"child\":[{\"id\":1,\"firstName\":\"Test1\",\"secondName\":\"Test5\",\"sex\":\"M\",\"pesel\":\"34534534545\"},{\"id\":2,\"firstName\":\"Test2\",\"secondName\":\"Test6\",\"sex\":\"K\",\"pesel\":\"34534565445\"},{\"id\":3,\"firstName\":\"Test3\",\"secondName\":\"Test7\",\"sex\":\"M\",\"pesel\":\"14010312312\"}]}"));
 	}
 	
 	
 	@Test
 	public void testReadFamilyByFamilyId() throws Exception {	
 		this.mockMvc.perform(get("/read/family/1")).andDo(print()).andExpect(status().isOk())
-		.andExpect(content().json("{\"id\":1,\"father\":{\"id\":1,\"firstName\":\"Test10\",\"secondName\":\"Test11\",\"birthDate\":\"1992-04-12\",\"pesel\":\"92041223445\"},\"child\":[{\"id\":1,\"firstName\":\"Test1\",\"secondName\":\"Test5\",\"sex\":\"Mężczyzna\",\"pesel\":\"34534534545\"},{\"id\":2,\"firstName\":\"Test2\",\"secondName\":\"Test6\",\"sex\":\"Kobieta\",\"pesel\":\"34534565445\"},{\"id\":3,\"firstName\":\"Test3\",\"secondName\":\"Test7\",\"sex\":\"Mężczyzna\",\"pesel\":\"14010312312\"}]}"));
+		.andExpect(content().json("{\"id\":1,\"father\":{\"id\":1,\"firstName\":\"Test10\",\"secondName\":\"Test11\",\"birthDate\":\"1992-04-12\",\"pesel\":\"92041223445\"},\"child\":[{\"id\":1,\"firstName\":\"Test1\",\"secondName\":\"Test5\",\"sex\":\"M\",\"pesel\":\"34534534545\"},{\"id\":2,\"firstName\":\"Test2\",\"secondName\":\"Test6\",\"sex\":\"K\",\"pesel\":\"34534565445\"},{\"id\":3,\"firstName\":\"Test3\",\"secondName\":\"Test7\",\"sex\":\"M\",\"pesel\":\"14010312312\"}]}"));
 	}
 	
 	@Test
@@ -102,7 +102,7 @@ public class ControllerTest {
 	@Test
 	public void testReadChild() throws Exception {
 		this.mockMvc.perform(get("/read/child/1")).andDo(print()).andExpect(status().isOk())
-		.andExpect(content().json("{\"id\":1,\"firstName\":\"Test1\",\"secondName\":\"Test5\",\"sex\":\"Mężczyzna\",\"pesel\":\"34534534545\"}"));
+		.andExpect(content().json("{\"id\":1,\"firstName\":\"Test1\",\"secondName\":\"Test5\",\"sex\":\"M\",\"pesel\":\"34534534545\"}"));
 	}
 	
 

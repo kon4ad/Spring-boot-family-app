@@ -48,6 +48,9 @@ export class AddingPageComponent implements OnInit {
 
   createFather(){
     let fath: Father = this.firstFormGroup.getRawValue();
+    fath.birthDate = new Date(fath.birthDate.getTime() + 86400001);
+    console.log(fath.birthDate);
+    console.log(new Date(fath.birthDate.getTime() + 86400001));
     this.father = fath;
   }
 

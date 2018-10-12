@@ -68,7 +68,7 @@ public class ServiceTest {
 		c2.setFirstName("Test3");
 		c2.setPESEL("14534534545");
 		c2.setSecondName("Test4");
-		c2.setSex("Kobieta");
+		c2.setSex("K");
 		int childID = this.familyService.addChildTofamily(c2, famId);
 		
 		assertTrue(childID > 0);
@@ -92,7 +92,7 @@ public class ServiceTest {
 		c2.setFirstName("Test3");
 		c2.setPESEL("14534534545");
 		c2.setSecondName("Test4");
-		c2.setSex("Kobieta");
+		c2.setSex("K");
 		int childID = this.familyService.addChildTofamily(c2, famId);
 		
 		Family createdFamily = this.familyService.readFamily(childID, true);
@@ -115,14 +115,14 @@ public class ServiceTest {
 		c2.setFirstName("Test3");
 		c2.setPESEL("14534534545");
 		c2.setSecondName("Test4");
-		c2.setSex("Kobieta");
+		c2.setSex("K");
 		this.familyService.addChildTofamily(c2, famId);
 		
 		Child c1 = new Child();
 		c1.setFirstName("Test4");
 		c1.setPESEL("12345678911");
 		c1.setSecondName("Test5");
-		c1.setSex("Mężczyzna");
+		c1.setSex("M");
 		
 		int childID1 = this.familyService.addChildTofamily(c1, famId);
 		

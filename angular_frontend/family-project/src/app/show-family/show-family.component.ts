@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Family } from '../app.component';
 import { HttpService } from '../http-serivce';
 
@@ -13,7 +13,7 @@ export class ShowFamilyComponent implements OnInit, OnDestroy {
   family: Family;
   private sub: any;
   noResults: boolean = false;
-  constructor(private route: ActivatedRoute, private Httpsrv: HttpService) { }
+  constructor(private route: ActivatedRoute, private Httpsrv: HttpService, private router:Router) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -21,10 +21,15 @@ export class ShowFamilyComponent implements OnInit, OnDestroy {
       this.Httpsrv.readFamily(this.id).subscribe(fam => {
         if(fam == null){
           this.noResults = true;
+          alert("Family not found!")
+          this.router.navigate(['']);
         }else {
           this.family = fam;
         }
         
+      }, err => {
+        alert("Family not found!")
+        this.router.navigate(['']);
       })
    });
   }
