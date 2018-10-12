@@ -16,9 +16,10 @@ export class SearchPanelComponent implements OnInit {
   @Output() formSearch: EventEmitter<boolean> = new EventEmitter();
   myForm: FormGroup;
   obj: Object;
+  maxDate = new Date();
   sexs: Sex[] = [
-    {value: '0', viewValue: 'Mężczyzna'},
-    {value: '1', viewValue: 'Kobieta'}
+    {value: 'M', viewValue: 'Mężczyzna'},
+    {value: 'K', viewValue: 'Kobieta'}
   ];
 
   constructor(){}

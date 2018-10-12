@@ -18,13 +18,13 @@ export class AddingPageComponent implements OnInit {
 
   father: Father;
   childrens: Child[];
-
+  maxDate = new Date();
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   sexs: Sex[] = [
-    {value: '0', viewValue: 'Mężczyzna'},
-    {value: '1', viewValue: 'Kobieta'}
+    {value: 'M', viewValue: 'Mężczyzna'},
+    {value: 'K', viewValue: 'Kobieta'}
   ];
   constructor(private _formBuilder: FormBuilder, private httpServ:HttpService, private route:Router) {}
 
@@ -71,10 +71,19 @@ export class AddingPageComponent implements OnInit {
             if(counter == this.childrens.length){
               this.route.navigate(['/read/family/', familyId]);
             }
+          }, child_err => {
+            alert("Problem with server.");
+            this.route.navigate(['']);
           });
 
         }
+      }, father_err => {
+        alert("Problem with server.");
+        this.route.navigate(['']);
       })
+    }, fam_err => {
+      alert("Problem with server.");
+      this.route.navigate(['']);
     })
   }
 

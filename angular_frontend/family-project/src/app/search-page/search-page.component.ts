@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http-serivce';
 import { Family } from '../app.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { Family } from '../app.component';
 })
 export class SearchPageComponent implements OnInit {
 
-  constructor(public httpServ: HttpService){}
+  constructor(public httpServ: HttpService, private route:Router){}
 
   public families: Family[];
   familyFound: boolean = false;
@@ -40,13 +41,15 @@ export class SearchPageComponent implements OnInit {
             }
           }
         ),err => {
-
+          alert("Problem with server.");
+          this.route.navigate(['']);
           }
         });
         this.familyLoading = false;
       }
     },err =>{
-
+      alert("Problem with server.");
+      this.route.navigate(['']);
     })
   }
 

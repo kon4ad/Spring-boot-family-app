@@ -1,6 +1,5 @@
 package com.konrad.loch.utils;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Map;
 
@@ -37,7 +36,6 @@ public class AppUtils {
 		if(sb.subSequence(sb.length()-5, sb.length()).equals(concateString)){
 			sb.delete(sb.length()-5, sb.length());
 		}
-		System.out.println(sb.toString());
 		return sb.toString();
 	}
 	

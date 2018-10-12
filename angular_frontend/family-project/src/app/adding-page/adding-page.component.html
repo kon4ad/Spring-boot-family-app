@@ -12,7 +12,7 @@
               <input matInput placeholder="PESEL" formControlName="pesel" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="Data urodzenia" formControlName="birthDate">
+                <input matInput [matDatepicker]="picker" [max]="maxDate" placeholder="Data urodzenia" formControlName="birthDate">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -36,7 +36,7 @@
               </mat-form-field>
               <mat-form-field>
                   <mat-select placeholder="Płeć" formControlName="sex">
-                    <mat-option *ngFor="let sex of sexs" [value]="sex.viewValue">
+                    <mat-option *ngFor="let sex of sexs" [value]="sex.value">
                       {{sex.viewValue}}
                     </mat-option>
                   </mat-select>

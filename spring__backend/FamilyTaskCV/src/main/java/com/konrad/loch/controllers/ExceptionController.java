@@ -1,5 +1,6 @@
 package com.konrad.loch.controllers;
 
+
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,11 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(value = { SaveOperationException.class })
 	protected ResponseEntity<Object> handleSaveError(Exception ex, WebRequest request) {
-		return handleExceptionInternal(ex, null, new HttpHeaders(), HttpStatus.SERVICE_UNAVAILABLE, request);
+		return handleExceptionInternal(ex, "Cannot save this enitity to database.", new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+	}
+	
+	@ExceptionHandler(value = {Exception.class})
+	protected ResponseEntity<Object> handleSQLError(Exception ex, WebRequest request){
+		return handleExceptionInternal(ex, null, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
 	}
 }
