@@ -19,7 +19,6 @@ public class DataSourceConfig {
     @Bean
     @Primary
     public DataSource dataSource() {
-    	System.out.println("H2 db config....");
         return new EmbeddedDatabaseBuilder()
             .generateUniqueName(true)
             .setType(EmbeddedDatabaseType.H2)

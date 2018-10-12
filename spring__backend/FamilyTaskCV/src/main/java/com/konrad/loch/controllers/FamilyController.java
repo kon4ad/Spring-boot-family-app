@@ -39,37 +39,38 @@ public class FamilyController {
 	@PostMapping("/add/child")
 	public ResponseEntity<Integer> addChildToFamily(@RequestBody Child child, 
 			@RequestParam("familyid") String familyId) throws NumberFormatException, SaveOperationException{
-		return new ResponseEntity<Integer>(this.familyService.addChildTofamily(child, Integer.parseInt(familyId)), HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.OK).body(this.familyService.addChildTofamily(child, Integer.parseInt(familyId)));
 	}
 	
 	@PostMapping("/add/father")
 	public ResponseEntity<Integer> addFatherToFamily(@RequestBody Father child, 
 			@RequestParam("familyid") String familyId) throws NumberFormatException, SaveOperationException{
-		return new ResponseEntity<Integer>(this.familyService.addFatherTofamily(child, Integer.parseInt(familyId)), HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.OK).body(this.familyService.addFatherTofamily(child, Integer.parseInt(familyId)));
 	}
 	
 	@GetMapping("/read/family")
 	public ResponseEntity<Family> readFamily(@RequestParam("childId") String childId){
-		return new ResponseEntity<Family>(this.familyService.readFamily(Integer.parseInt(childId), true), HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.OK).body(this.familyService.readFamily(Integer.parseInt(childId), true));
 	}
+	
 	@GetMapping("/read/family/{id}")
 	public ResponseEntity<Family> readFamilyById(@PathVariable("id") String id){
-		return new ResponseEntity<Family>(this.familyService.readFamily(Integer.parseInt(id), false), HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.OK).body(this.familyService.readFamily(Integer.parseInt(id), false));
 	}
 	
 	@GetMapping("/search/child")
 	public ResponseEntity<List<Integer>> searchChild(@RequestParam Map<String,String> paramMap){
-		return new ResponseEntity<List<Integer>>(this.familyService.searchChild(paramMap), HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.OK).body(this.familyService.searchChild(paramMap));
 	}
 	
-	@GetMapping("/read/father")
-	public ResponseEntity<Father> readFather(@RequestParam("fatherId") String fatherId){
-		return new ResponseEntity<Father>(this.familyService.readFather(Integer.parseInt(fatherId)), HttpStatus.OK);
+	@GetMapping("/read/father/{id}")
+	public ResponseEntity<Father> readFather(@PathVariable("id") String fatherId){
+		return ResponseEntity.status(HttpStatus.OK).body(this.familyService.readFather(Integer.parseInt(fatherId)));
 	}
 	
-	@GetMapping("/read/child")
-	public ResponseEntity<Child> readChild(@RequestParam("childId") String childId){
-		return new ResponseEntity<Child>(this.familyService.readChild(Integer.parseInt(childId)), HttpStatus.OK);
+	@GetMapping("/read/child/{id}")
+	public ResponseEntity<Child> readChild(@PathVariable("id") String childId){
+		return ResponseEntity.status(HttpStatus.OK).body(this.familyService.readChild(Integer.parseInt(childId)));
 	}
 	
 

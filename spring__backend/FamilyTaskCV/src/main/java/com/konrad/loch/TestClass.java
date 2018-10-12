@@ -18,6 +18,8 @@ import com.konrad.loch.domains.Father;
 import com.konrad.loch.services.FamilyService;
 
 
+
+
 @Component
 public class TestClass implements CommandLineRunner {
 
@@ -29,13 +31,10 @@ public class TestClass implements CommandLineRunner {
 	private JdbcTemplate jt;
 	@Override
 	public void run(String... args) throws Exception {
-		
 	}
 	
-	//change to execute file.
 	@PreDestroy
 	public void clearschemasindb() {
-		System.out.println("drop referencies");
 		this.jt.execute("alter table family drop foreign key FK_family_father");
 		this.jt.execute("alter table family_childrens drop foreign key FK_family_child");
 		this.jt.execute("alter table family_childrens drop  foreign key FK_family_family");

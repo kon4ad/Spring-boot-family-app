@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.konrad.loch.domains.Child;
@@ -25,7 +26,8 @@ import com.konrad.loch.services.FamilyService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @Import(DataSourceConfig.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // zmienic na trunkete method.
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@TestPropertySource(locations="classpath:test.properties")
 public class ServiceTest {
 	
 	@Autowired
@@ -41,10 +43,10 @@ public class ServiceTest {
 		int famId = this.familyService.createFamily();
 		
 		Father f = new Father();
-		f.setFirstName("Janusz");
+		f.setFirstName("Test1");
 		f.setBirthDate(new Date(new GregorianCalendar(1993, 9, 3).getTimeInMillis()));
 		f.setPESEL("33333333333");
-		f.setSecondName("Dokor");
+		f.setSecondName("Test2");
 		int fatherId = this.familyService.addFatherTofamily(f, famId);
 		assertTrue(fatherId > 0 );
 		assertTrue(this.familyService.readFather(fatherId).equals(f));
@@ -55,17 +57,17 @@ public class ServiceTest {
 		int famId = this.familyService.createFamily();
 		
 		Father f = new Father();
-		f.setFirstName("Janusz");
+		f.setFirstName("Test1");
 		f.setBirthDate(new Date(new GregorianCalendar(1993, 9, 3).getTimeInMillis()));
 		f.setPESEL("33333333333");
-		f.setSecondName("Dokor");
+		f.setSecondName("Test2");
 		
 		this.familyService.addFatherTofamily(f, famId);
 		
 		Child c2 = new Child();
-		c2.setFirstName("Joanna");
+		c2.setFirstName("Test3");
 		c2.setPESEL("14534534545");
-		c2.setSecondName("WWC");
+		c2.setSecondName("Test4");
 		c2.setSex("Kobieta");
 		int childID = this.familyService.addChildTofamily(c2, famId);
 		
@@ -79,17 +81,17 @@ public class ServiceTest {
 		int famId = this.familyService.createFamily();
 		
 		Father f = new Father();
-		f.setFirstName("Janusz");
+		f.setFirstName("Test1");
 		f.setBirthDate(new Date(new GregorianCalendar(1993, 9, 3).getTimeInMillis()));
 		f.setPESEL("33333333333");
-		f.setSecondName("Dokor");
+		f.setSecondName("Test2");
 		
 		int fatherID = this.familyService.addFatherTofamily(f, famId);
 		
 		Child c2 = new Child();
-		c2.setFirstName("Joanna");
+		c2.setFirstName("Test3");
 		c2.setPESEL("14534534545");
-		c2.setSecondName("WWC");
+		c2.setSecondName("Test4");
 		c2.setSex("Kobieta");
 		int childID = this.familyService.addChildTofamily(c2, famId);
 		
@@ -102,30 +104,30 @@ public class ServiceTest {
 	public void testSearchFamily() throws SaveOperationException{
 		int famId = this.familyService.createFamily();
 		Father f = new Father();
-		f.setFirstName("Janusz");
+		f.setFirstName("Test1");
 		f.setBirthDate(new Date(new GregorianCalendar(1993, 9, 3).getTimeInMillis()));
 		f.setPESEL("33333333333");
-		f.setSecondName("Dokor");
+		f.setSecondName("Test2");
 		
 		this.familyService.addFatherTofamily(f, famId);
 		
 		Child c2 = new Child();
-		c2.setFirstName("Joanna");
+		c2.setFirstName("Test3");
 		c2.setPESEL("14534534545");
-		c2.setSecondName("WWC");
+		c2.setSecondName("Test4");
 		c2.setSex("Kobieta");
 		this.familyService.addChildTofamily(c2, famId);
 		
 		Child c1 = new Child();
-		c1.setFirstName("Piotr");
+		c1.setFirstName("Test4");
 		c1.setPESEL("12345678911");
-		c1.setSecondName("Abc");
+		c1.setSecondName("Test5");
 		c1.setSex("Mężczyzna");
 		
 		int childID1 = this.familyService.addChildTofamily(c1, famId);
 		
 		Map<String, String> paramMap = new HashMap<>();
-		paramMap.put("first_name", "Piotr");
+		paramMap.put("first_name", "Test4");
 		
 		List<Integer> foundChildId = this.familyService.searchChild(paramMap);
 		assertTrue(foundChildId.size() == 1);
